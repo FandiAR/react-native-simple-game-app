@@ -6,16 +6,25 @@ import StartGameScreen from './screens/StartGameScreen'
 import GameScreen from './screens/GameScreen'
 import { StatusBar } from 'expo-status-bar'
 import Colors from './constants/colors'
+import GameOverScreen from './screens/GameOverScreen'
 
 const App = () => {
   const [userNumber, setUserNumber] = useState()
+  const [gameIsOver, setGameIsOver] = useState(true)
 
-  const pickedNumberHandler = (pickedNumber) => setUserNumber(pickedNumber)
+  const pickedNumberHandler = (pickedNumber) => {
+    setUserNumber(pickedNumber)
+    setGameIsOver(false)
+  }
+
+  const gameOverHandler = () => setGameIsOver(true)
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />
 
-  if (userNumber) screen = <GameScreen userNumber={userNumber} />
+  if (userNumber) screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
 
+  if (gameIsOver && userNumber) screen = <GameOverScreen />
+  
   return (
     <>
       <StatusBar style='light' />
