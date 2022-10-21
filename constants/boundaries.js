@@ -1,4 +1,4 @@
-const Boundaries = {
+let Boundaries = {
     minBoundary: 1,
     maxBoundary: 100
 }
