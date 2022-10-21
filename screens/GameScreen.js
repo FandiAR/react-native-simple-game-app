@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import { Alert, FlatList, StyleSheet, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
-import NumberContainer from '../components/game/NumberContainer'
-import Card from '../components/ui/Card'
-import GuessLogItem from '../components/game/GuessLogItem'
-import InstructionText from '../components/ui/InstructionText'
-import PrimaryButton from '../components/ui/PrimaryButton'
-import Title from '../components/ui/Title'
-import Boundaries from '../constants/boundaries'
+import {
+    Card,
+    GuessLogItem,
+    InstructionText,
+    NumberContainer,
+    PrimaryButton,
+    Title,
+} from '../components'
 
 const generateRandomBetween = (min, max, exclude) => {
     const rndNum = Math.floor(Math.random() * (max - min)) + min
@@ -17,19 +18,22 @@ const generateRandomBetween = (min, max, exclude) => {
     else return rndNum
 }
 
+let minBoundary = 1
+let maxBoundary = 100
+
 const GameScreen = ({ userNumber, onGameOver }) => {
-    let { minBoundary, maxBoundary } = Boundaries
-    const initialGuess = generateRandomBetween(
-        minBoundary,
-        maxBoundary,
-        userNumber,
-    );
+    const initialGuess = generateRandomBetween(1, 100, userNumber)
     const [currentGuess, setCurrentGuess] = useState(initialGuess)
-    const [guessRounds, setGuessRounds] = useState([initialGuess]);
+    const [guessRounds, setGuessRounds] = useState([initialGuess])
 
     useEffect(() => {
         if (currentGuess === userNumber) onGameOver()
     }, [currentGuess, userNumber, onGameOver])
+
+    useEffect(() => {
+        minBoundary = 1
+        maxBoundary = 100
+      }, [])
 
     const nextGuessHandler = (direction) => {
         // direction => 'lower', 'greater'

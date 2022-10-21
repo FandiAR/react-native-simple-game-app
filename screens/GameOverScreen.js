@@ -1,8 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 
 import Colors from '../constants/colors'
-import PrimaryButton from '../components/ui/PrimaryButton'
-import Title from '../components/ui/Title'
+import { PrimaryButton, Title } from '../components'
 
 
 const GameOverScreen = ({ roundsNumber, userNumber, onStartNewGame }) => (
